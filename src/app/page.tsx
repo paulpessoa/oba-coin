@@ -1,24 +1,74 @@
 "use client"
 import BitcoinRealTime from '@/components/BitcoinRealTime';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export default function Home() {
 
   const [disabled, setDisabled] = useState(false);
 
   const vibrateDevice = () => {
-    // Verifica se a funcionalidade de vibração está disponível no navegador
+
     if ('vibrate' in navigator) {
-      // Vibra o dispositivo por 1000ms (1 segundo)
-      navigator.vibrate(1000);
+      const pattern = [
+        100,
+        50,
+        100,
+        50,
+        100,
+        50,
+        100,
+        50,
+        100,
+        50,
+        100,
+        50,
+        100,
+        50,
+        100,
+        50,
+        100,
+        50,
+        100,
+        50,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100
+      ];
+      navigator.vibrate(pattern);
     } else {
-      // Caso a funcionalidade de vibração não esteja disponível, exiba uma mensagem de erro ou execute outra ação
       console.log('A funcionalidade de vibração não está disponível neste dispositivo.');
     }
   };
 
+
+  const showNotification = () => {
+    if ('Notification' in window && Notification.permission === 'granted') {
+      new Notification('Preço fora do limite', {
+        body: 'O preço do Bitcoin está fora do limite definido.',
+        icon: '/public/icon-192x192.png' // Altere para o caminho do seu ícone de notificação
+      });
+    } else if ('Notification' in window && Notification.permission !== 'denied') {
+      Notification.requestPermission().then(permission => {
+        if (permission === 'granted') {
+          new Notification('Permissão concedida', {
+            body: 'Agora você receberá notificações quando o preço do Bitcoin estiver fora do limite.'
+          });
+        }
+      });
+    }
+  };
+
+
   const handleClick = () => {
+   
     vibrateDevice();
+    showNotification();
     setDisabled(true);
 
     setTimeout(() => {
@@ -29,6 +79,7 @@ export default function Home() {
 
   const handleBitcoinPriceUpdate = (price: any) => {
     console.log("PAI", price)
+    alert(`funcinou tambem ${price}`)
   };
 
   return (

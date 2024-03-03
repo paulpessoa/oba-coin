@@ -3,7 +3,7 @@
     "background_color": "#8c6af9",
     "display": "standalone",
     "scope": "/",
-    "start_url": "/blablabla.com.br",
+    "start_url": "/",
     "name": "Oba Coin",
     "short_name": "ObaCoin",
     "description": "Esse app ficou topzera",
