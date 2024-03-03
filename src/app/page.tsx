@@ -48,20 +48,29 @@ export default function Home() {
   };
 
 
+  // const showNotification = () => {
+  //   if ('Notification' in window && Notification.permission === 'granted') {
+  //     new Notification('Preço fora do limite', {
+  //       body: 'O preço do Bitcoin está fora do limite definido.',
+  //       icon: '/public/icon-192x192.png' // Altere para o caminho do seu ícone de notificação
+  //     });
+  //   } else if ('Notification' in window && Notification.permission !== 'denied') {
+  //     Notification.requestPermission().then(permission => {
+  //       if (permission === 'granted') {
+  //         new Notification('Permissão concedida', {
+  //           body: 'Agora você receberá notificações quando o preço do Bitcoin estiver fora do limite.'
+  //         });
+  //       }
+  //     });
+  //   }
+  // };
+
+
   const showNotification = () => {
-    alert(`funcinou tambem hehe`)
     if ('Notification' in window && Notification.permission === 'granted') {
       new Notification('Preço fora do limite', {
         body: 'O preço do Bitcoin está fora do limite definido.',
         icon: '/public/icon-192x192.png' // Altere para o caminho do seu ícone de notificação
-      });
-    } else if ('Notification' in window && Notification.permission !== 'denied') {
-      Notification.requestPermission().then(permission => {
-        if (permission === 'granted') {
-          new Notification('Permissão concedida', {
-            body: 'Agora você receberá notificações quando o preço do Bitcoin estiver fora do limite.'
-          });
-        }
       });
     }
   };
