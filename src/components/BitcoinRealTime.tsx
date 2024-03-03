@@ -1,7 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
 interface BitcoinRealTimeProps {
   onPriceUpdate: (price: number) => void;
 }
@@ -10,8 +9,8 @@ const apiKey = process.env.API_KEY;
 
 const BitcoinRealTime: React.FC<BitcoinRealTimeProps> = ({ onPriceUpdate }) => {
   const [bitcoinPrice, setBitcoinPrice] = useState<number | null>(null);
-  const [maxPrice, setMaxPrice] = useState<number | null>(null);
-  const [minPrice, setMinPrice] = useState<number | null>(null);
+  const [maxPrice, setMaxPrice] = useState<number | null>(999999);
+  const [minPrice, setMinPrice] = useState<number | null>(99);
 
   useEffect(() => {
     const fetchBitcoinPrice = async () => {
@@ -36,7 +35,7 @@ const BitcoinRealTime: React.FC<BitcoinRealTimeProps> = ({ onPriceUpdate }) => {
       }
     };
 
-    const intervalId = setInterval(fetchBitcoinPrice, 30000); // 30 segundos
+    const intervalId = setInterval(fetchBitcoinPrice, 15000); // 15 segundos
 
     // Cleanup function to clear interval on unmount
     return () => clearInterval(intervalId);
@@ -59,10 +58,10 @@ const BitcoinRealTime: React.FC<BitcoinRealTimeProps> = ({ onPriceUpdate }) => {
       {bitcoinPrice !== null ? (
         <p>{bitcoinPrice}</p>
       ) : (
-        <p>Loading...</p>
+        <p>Carregando último preço...</p>
       )}
 
-      <label htmlFor="maxPrice">Máximo:</label>
+      <label htmlFor="maxPrice">Preço Máximo:</label>
       <input
         type="number"
         id="maxPrice"
@@ -70,7 +69,7 @@ const BitcoinRealTime: React.FC<BitcoinRealTimeProps> = ({ onPriceUpdate }) => {
         onChange={(e) => setMaxPrice(parseFloat(e.target.value))}
       />
 
-      <label htmlFor="minPrice">Mínimo:</label>
+      <label htmlFor="minPrice">Preço Mínimo:</label>
       <input
         type="number"
         id="minPrice"

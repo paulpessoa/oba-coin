@@ -1,4 +1,5 @@
 "use client"
+import "./globals.css"
 import BitcoinRealTime from '@/components/BitcoinRealTime';
 import { useState } from 'react';
 
@@ -48,6 +49,7 @@ export default function Home() {
 
 
   const showNotification = () => {
+    alert(`funcinou tambem hehe`)
     if ('Notification' in window && Notification.permission === 'granted') {
       new Notification('Preço fora do limite', {
         body: 'O preço do Bitcoin está fora do limite definido.',
@@ -66,7 +68,7 @@ export default function Home() {
 
 
   const handleClick = () => {
-   
+
     vibrateDevice();
     showNotification();
     setDisabled(true);
@@ -79,15 +81,14 @@ export default function Home() {
 
   const handleBitcoinPriceUpdate = (price: any) => {
     console.log("PAI", price)
-    alert(`funcinou tambem ${price}`)
   };
 
   return (
-    <>
+    <div className="container">
       <h1>Clique no botão para vibrar o dispositivo</h1>
       <BitcoinRealTime onPriceUpdate={handleBitcoinPriceUpdate} />
       <button onClick={handleClick} disabled={disabled}>Vibrar</button>
-    </>
+    </div>
   );
 }
 
