@@ -1,4 +1,5 @@
 "use client"
+import BitcoinRealTime from '@/components/BitcoinRealTime';
 import { useEffect, useState } from 'react';
 
 export default function Home() {
@@ -25,9 +26,15 @@ export default function Home() {
     }, 2000); // Desativa o botão por 5 segundos
   };
 
+
+  const handleBitcoinPriceUpdate = (price: any) => {
+    console.log("PAI", price)
+  };
+
   return (
-    <>  
+    <>
       <h1>Clique no botão para vibrar o dispositivo</h1>
+      <BitcoinRealTime onPriceUpdate={handleBitcoinPriceUpdate} />
       <button onClick={handleClick} disabled={disabled}>Vibrar</button>
     </>
   );
